@@ -6,6 +6,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from decouple import config
 
+
 if os.environ.get("docker") is None:
     load_dotenv(".env")
     print("Load env from .env file")
@@ -25,6 +26,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'server.api'
 ]
 
 MIDDLEWARE = [
@@ -37,13 +40,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 25
+}
+
 ROOT_URLCONF = 'server.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'server/templates']
-        ,
+        'DIRS': [BASE_DIR / 'server/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
